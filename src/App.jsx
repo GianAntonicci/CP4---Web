@@ -1,8 +1,9 @@
+import Cadastro from "./assets/Cadastro"
 
 const App = () => {
   return (
     <>
-
+      <Cadastro/>
     </>
   )
 }
