@@ -1,4 +1,4 @@
-import Cadastro from "./assets/Cadastro"
+import Cadastro from "./components/Cadastro"
 
 const App = () => {
   return (
