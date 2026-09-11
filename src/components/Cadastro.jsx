@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+
 const corPrioridade = {
   Baixa: "bg-emerald-100 text-emerald-700",
   Média: "bg-amber-100 text-amber-700",
