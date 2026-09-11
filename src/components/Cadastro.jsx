@@ -15,7 +15,8 @@ const Cadastro = () => {
   const [nome, setNome] = useState("");
   const [data, setData] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [prioridade, setPrioridade] = useState("Média");
+  const [prioridade, setPrioridade] = useState("Média")
+  const [filtro, setFiltro] = useState("todas");
 
   // Executa sempre que "tarefas" muda para atualizar o localStorage.
   useEffect(() => {
@@ -116,6 +117,15 @@ const Cadastro = () => {
           </button>
         </form>
 
+        <div className="mb-6 flex justify-center gap">
+          <button  type="button" onClick={() => setFiltro("todas")} className={`rounded-full px-4 py-1.5 text-sm font-medium transiton-colors ${filtro === "todas"
+            ? "bg-indigo-600 text white" : "bg-white text-slate-600 hover:bg-slate-200"}`}>Todas</button>
+          <button  type="button" onClick={() => setFiltro("pendentes")} className={`rounded-full px-4 py-1.5 text-sm font-medium transiton-colors ${filtro === "pendentes"
+            ? "bg-indigo-600 text white" : "bg-white text-slate-600 hover:bg-slate-200"}`}>Pendentes</button>
+          <button  type="button" onClick={() => setFiltro("concluidas")} className={`rounded-full px-4 py-1.5 text-sm font-medium transiton-colors ${filtro === "concluidas"
+            ? "bg-indigo-600 text white" : "bg-white text-slate-600 hover:bg-slate-200"}`}>Concluidas</button>
+        </div>
+
         <div className="flex flex-col gap-4">
           {tarefas.length === 0 && (
             <p className="text-center text-slate-400">
@@ -123,7 +133,7 @@ const Cadastro = () => {
             </p>
           )}
 
-          {tarefas.map((tarefa) => (
+          {tarefasFiltradas.map((tarefa) => (
             <div
               key={tarefa.id}
               className="rounded-xl bg-white p-5 shadow-md transition-shadow hover:shadow-lg"
@@ -144,6 +154,9 @@ const Cadastro = () => {
               </p>
               <p className="mb-4 text-sm text-slate-600">{tarefa.descricao}</p>
 
+              <div className="flex gap-2">
+                <button type="button" onClick={() => alternarConclusao(tarefa.id)} className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${tarefa.concluida ? "bg-slate-100 text-slate-600 hover:bg-slate-200" : "bg-emerald-50 text-emerald-600 hover:bg-emerald-100"}`}>{tarefa.cooncluida ? "Marcar como pendente": "Marcar como concluida"} </button>
+
               <button
                 type="button"
                 onClick={() => removerTarefa(tarefa.id)}
@@ -152,6 +165,7 @@ const Cadastro = () => {
                 Apagar tarefa
               </button>
             </div>
+           </div>
           ))}
         </div>
       </div>
