@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
-
+const corPrioridade = {
+  Baixa: "bg-emerald-100 text-emerald-700",
+  Média: "bg-amber-100 text-amber-700",
+  Alta: "bg-rose-100 text-rose-700",
+};
 const Cadastro = () => {
   // Inicializa o estado com as tarefas salvas no navegador.
   const [tarefas, setTarefas] = useState(() => {
@@ -101,18 +105,40 @@ const Cadastro = () => {
         </form>
 
         <div className="flex flex-col gap-4">
-          {tarefas.map((tarefa) => (
-            <div key={tarefa.id}>
-              <p>Nome: {tarefa.nome}</p>
-              <p>Data: {tarefa.data}</p>
-              <p>Descrição: {tarefa.descricao}</p>
-              <p>Prioridade: {tarefa.prioridade}</p>
+          {tarefas.length === 0 && (
+            <p className="text-center text-slate-400">
+              Nenhuma tarefa cadastrada ainda.
+            </p>
+          )}
 
-              <button type="button" onClick={() => removerTarefa(tarefa.id)}>
+          {tarefas.map((tarefa) => (
+            <div
+              key={tarefa.id}
+              className="rounded-xl bg-white p-5 shadow-md transition-shadow hover:shadow-lg"
+            >
+              <div className="mb-2 flex items-start justify-between gap-3">
+                <h2 className="text-lg font-semibold text-slate-800">
+                  {tarefa.nome}
+                </h2>
+                <span
+                  className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${corPrioridade[tarefa.prioridade]}`}
+                >
+                  {tarefa.prioridade}
+                </span>
+              </div>
+
+              <p className="mb-1 text-sm text-slate-500">
+                Data: <span className="text-slate-700">{tarefa.data}</span>
+              </p>
+              <p className="mb-4 text-sm text-slate-600">{tarefa.descricao}</p>
+
+              <button
+                type="button"
+                onClick={() => removerTarefa(tarefa.id)}
+                className="rounded-lg bg-rose-50 px-3 py-1.5 text-sm font-medium text-rose-600 transition-colors hover:bg-rose-100"
+              >
                 Apagar tarefa
               </button>
-
-              <hr />
             </div>
           ))}
         </div>
