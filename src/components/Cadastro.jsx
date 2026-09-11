@@ -50,62 +50,74 @@ const Cadastro = () => {
   };
 
   return (
-    <>
-      <h1>Tarefas</h1>
+    <div className="min-h-screen bg-slate-100 py-10 px-4">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="mb-6 text-center text-3xl font-bold text-slate-800">
+          Tarefas
+        </h1>
 
-      <form onSubmit={cadastrarTarefa}>
-        <input
-          type="text"
-          placeholder="Nome"
-          value={nome}
-          // Callback que atualiza o estado do nome conforme o usuário digita.
-          onChange={(event) => setNome(event.target.value)}
-        />
-
-        <input
-          type="date"
-          value={data}
-          // Callback que atualiza o estado da data.
-          onChange={(event) => setData(event.target.value)}
-        />
-
-        <textarea
-          placeholder="Descrição"
-          value={descricao}
-          // Callback que atualiza o estado da descrição.
-          onChange={(event) => setDescricao(event.target.value)}
-        />
-
-        <select
-          value={prioridade}
-          // Callback que atualiza o estado da prioridade.
-          onChange={(event) => setPrioridade(event.target.value)}
+        <form
+          onSubmit={cadastrarTarefa}
+          className="mb-8 flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md"
         >
-          <option>Baixa</option>
-          <option>Média</option>
-          <option>Alta</option>
-        </select>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={nome}
+            onChange={(event) => setNome(event.target.value)}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          />
 
-        <button type="submit">Adicionar</button>
-      </form>
+          <input
+            type="date"
+            value={data}
+            onChange={(event) => setData(event.target.value)}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          />
 
-      {/* map executa um callback para renderizar cada tarefa da lista. */}
-      {tarefas.map((tarefa) => (
-        <div key={tarefa.id}>
-          <p>Nome: {tarefa.nome}</p>
-          <p>Data: {tarefa.data}</p>
-          <p>Descrição: {tarefa.descricao}</p>
-          <p>Prioridade: {tarefa.prioridade}</p>
+          <textarea
+            placeholder="Descrição"
+            value={descricao}
+            onChange={(event) => setDescricao(event.target.value)}
+            className="min-h-[90px] resize-y rounded-lg border border-slate-300 px-3 py-2 text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          />
 
-          {/* Callback que envia o id da tarefa para a função de remoção. */}
-          <button type="button" onClick={() => removerTarefa(tarefa.id)}>
-            Apagar tarefa
+          <select
+            value={prioridade}
+            onChange={(event) => setPrioridade(event.target.value)}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          >
+            <option>Baixa</option>
+            <option>Média</option>
+            <option>Alta</option>
+          </select>
+
+          <button
+            type="submit"
+            className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-indigo-700 active:bg-indigo-800"
+          >
+            Adicionar
           </button>
+        </form>
 
-          <hr />
+        <div className="flex flex-col gap-4">
+          {tarefas.map((tarefa) => (
+            <div key={tarefa.id}>
+              <p>Nome: {tarefa.nome}</p>
+              <p>Data: {tarefa.data}</p>
+              <p>Descrição: {tarefa.descricao}</p>
+              <p>Prioridade: {tarefa.prioridade}</p>
+
+              <button type="button" onClick={() => removerTarefa(tarefa.id)}>
+                Apagar tarefa
+              </button>
+
+              <hr />
+            </div>
+          ))}
         </div>
-      ))}
-    </>
+      </div>
+    </div>
   );
 };
 
