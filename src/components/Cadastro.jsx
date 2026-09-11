@@ -37,6 +37,7 @@ const Cadastro = () => {
       data,
       descricao,
       prioridade,
+      concluida: false,
     };
 
     setTarefas([...tarefas, novaTarefa]);
@@ -52,6 +53,17 @@ const Cadastro = () => {
     // filter cria uma lista sem a tarefa selecionada.
     setTarefas(tarefas.filter((tarefa) => tarefa.id !== id));
   };
+
+  const alternarConclusao = (id) => {
+    setTarefas(tarefas.map((tarefa) =>
+    tarefa.id === id ? {...tarefa,concluida: !tarefa.concluida} : tarefa));
+  }
+
+  const tarefasFiltradas = tarefas.filter((tarefa) => {
+    if (filtro === "pendentes") return !tarefa.concluida;
+    if (filtro === "concluidas") return tarefa.concluida;
+    return true;
+  })
 
   return (
     <div className="min-h-screen bg-slate-100 py-10 px-4">
